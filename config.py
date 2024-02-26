@@ -23,7 +23,7 @@ root.iconname()
 
 def loadData():
         if os.path.isfile("inputs.json"):
-            print("True")
+            print("JSON file found")
             with open("inputs.json", mode="r") as f:
                 try:
                     data = json.load(f)
@@ -36,7 +36,7 @@ def loadData():
                 except json.JSONDecodeError:
                     print("JSON file exists but is empty. It will be populated later")
         else:
-            print("False")
+            print("No JSON file found, creating file")
             with open ("inputs.json", "w") as f:
                 pass
 
