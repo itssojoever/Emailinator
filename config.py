@@ -24,6 +24,9 @@ programFrame1.grid(row=0, column=0)
 programFrame2 = tkinter.LabelFrame(root)
 programFrame2.grid(row=1, column=0)
 
+programFrame3 = tkinter.LabelFrame(root)
+programFrame3.grid(row=2, column=0)
+
 #widgets>
 
 #frame1
@@ -33,6 +36,13 @@ emailInput = tkinter.Entry(programFrame1, font="helvetica", relief="sunken", wid
 #frame2
 confirmEmailInput = tkinter.Entry(programFrame2, font="helvetica", relief="sunken", width=50, borderwidth=5)
 l2 = tkinter.Label(programFrame2, font="helvetica, 12", text="Re-enter email address: ")
+
+#frame3
+chosenTimeHourInput = tkinter.Spinbox(programFrame3, from_=0, to=24)
+chosenTimeMinuteInput =tkinter.Spinbox(programFrame3, from_=0, to=59)
+l3 = tkinter.Label(programFrame3, font="helvetica, 12", text="Select time to receive email.")
+l4 = tkinter.Label(programFrame3, font="helvetica, 12", text="Hour: ")
+l5 = tkinter.Label(programFrame3, font="helvetica, 12", text="Minute:")
 
 
 #Layout>
@@ -45,6 +55,12 @@ l1.grid(row=0, column=0)
 confirmEmailInput.grid(row=0, column=1, padx=12, pady=10,)
 l2.grid(row=0, column=0, padx=12)
 
+#frame3
+chosenTimeHourInput.grid(row=0, column=2, padx=28)
+chosenTimeMinuteInput.grid(row=0, column=4, padx=28, pady=10)
+l3.grid(row=0, column=0)
+l4.grid(row=0, column=1)
+l5.grid(row=0, column=3)
 
 
 root.mainloop()
