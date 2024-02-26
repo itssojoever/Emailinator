@@ -9,29 +9,41 @@
 import tkinter #for the GUI
 import email #self-explanatory
 
-#root
+#root>
 
 root = tkinter.Tk()
-root.geometry("500x500")
+root.geometry("630x500")
 root.title("Emailinator")
 root.iconname()
 
-#frames
+#frames>
 
 programFrame1 = tkinter.LabelFrame(root)
 programFrame1.grid(row=0, column=0)
 
-#widgets
+programFrame2 = tkinter.LabelFrame(root)
+programFrame2.grid(row=1, column=0)
 
-l1 = tkinter.Label(programFrame1, text="Please enter email address")
+#widgets>
 
-emailInput = tkinter.Entry(programFrame1, text="email", width=50, borderwidth=5)
+#frame1
+l1 = tkinter.Label(programFrame1, font="helvetica, 12", text="Please enter email address: ")
+emailInput = tkinter.Entry(programFrame1, font="helvetica", relief="sunken", width=50, borderwidth=5)
 
-#Layout
+#frame2
+confirmEmailInput = tkinter.Entry(programFrame2, font="helvetica", relief="sunken", width=50, borderwidth=5)
+l2 = tkinter.Label(programFrame2, font="helvetica, 12", text="Re-enter email address: ")
 
-emailInput.grid(row=0, column=1, padx=10, pady=10)
+
+#Layout>
+
+#frame1
+emailInput.grid(row=0, column=1, padx=10, pady=10,)
 l1.grid(row=0, column=0)
 
+#frame2
+confirmEmailInput.grid(row=0, column=1, padx=12, pady=10,)
+l2.grid(row=0, column=0, padx=12)
 
 
 
