@@ -8,6 +8,7 @@
 
 import tkinter #for the GUI
 import email #self-explanatory
+from tkinter import messagebox
 
 #root>
 
@@ -19,10 +20,23 @@ root.iconname()
 #functions>
 
 def saveData():
-    givenEmail = emailInput.get()
-    f = open("inputs.py", "w")
-    f.write(givenEmail)
-    f.close()
+    givenEmail = emailInput.get().upper().strip()
+    givenEmail2 = confirmEmailInput.get().upper().strip()
+    givenTime = str(chosenTimeHourInput) + str(chosenTimeMinuteInput)
+    if givenEmail == givenEmail2:
+        try:
+            with open("inputs.py", "w") as f:
+                f.write(givenEmail)
+        except:
+            print ("Something went wrong when creating or opening the file")
+    else:
+        errorBox1 = messagebox.showerror(title="Error", message="The emails do not match, please try again")
+        errorBox1.pack()
+
+    emailInput.delete(0, tkinter.END)
+    confirmEmailInput.delete(0, tkinter.END)
+    chosenTimeHourInput.delete(0, tkinter.END)
+    chosenTimeMinuteInput.delete(0, tkinter.END)
 
 #frames>
 
