@@ -8,7 +8,8 @@
 
 import tkinter #for the GUI
 import email #self-explanatory
-from tkinter import messagebox
+from tkinter import messagebox #for throwing up messages
+import json
 
 #root>
 
@@ -22,21 +23,26 @@ root.iconname()
 def saveData():
     givenEmail = emailInput.get().upper().strip()
     givenEmail2 = confirmEmailInput.get().upper().strip()
-    givenTime = str(chosenTimeHourInput) + str(chosenTimeMinuteInput)
+    givenTimeH = int(chosenTimeHourInput.get())
+    giventimeM = int(chosenTimeMinuteInput.get())
+    data1 = [givenEmail, givenTimeH, giventimeM]
     if givenEmail == givenEmail2:
-        try:
-            with open("inputs.py", "w") as f:
-                f.write(givenEmail)
-        except:
-            print ("Something went wrong when creating or opening the file")
+        with open("inputs.json", "w") as f:
+            json.dump(data1, f)
+            messagebox.showinfo(title="Saved", message="Your settings were saved successfully")      
     else:
-        errorBox1 = messagebox.showerror(title="Error", message="The emails do not match, please try again")
-        errorBox1.pack()
+        messagebox.showerror(title="Error", message="The emails do not match, please try again")
+        
 
     emailInput.delete(0, tkinter.END)
     confirmEmailInput.delete(0, tkinter.END)
     chosenTimeHourInput.delete(0, tkinter.END)
     chosenTimeMinuteInput.delete(0, tkinter.END)
+
+#WIP. Intended so that when config loaded, fields will inherit saved settings
+#def loadData():
+    # with open("inputs.json") as f:
+    #     data = json.load(f)
 
 #frames>
 
