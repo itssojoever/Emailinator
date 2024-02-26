@@ -16,6 +16,14 @@ root.geometry("630x500")
 root.title("Emailinator")
 root.iconname()
 
+#functions>
+
+def saveData():
+    givenEmail = emailInput.get()
+    f = open("inputs.py", "w")
+    f.write(givenEmail)
+    f.close()
+
 #frames>
 
 programFrame1 = tkinter.LabelFrame(root)
@@ -26,6 +34,9 @@ programFrame2.grid(row=1, column=0)
 
 programFrame3 = tkinter.LabelFrame(root)
 programFrame3.grid(row=2, column=0)
+
+programFrame4 = tkinter.LabelFrame(root)
+programFrame4.grid(row=3, column=0)
 
 #widgets>
 
@@ -41,8 +52,11 @@ l2 = tkinter.Label(programFrame2, font="helvetica, 12", text="Re-enter email add
 chosenTimeHourInput = tkinter.Spinbox(programFrame3, from_=0, to=24)
 chosenTimeMinuteInput =tkinter.Spinbox(programFrame3, from_=0, to=59)
 l3 = tkinter.Label(programFrame3, font="helvetica, 12", text="Select time to receive email.")
-l4 = tkinter.Label(programFrame3, font="helvetica, 12", text="Hour: ")
-l5 = tkinter.Label(programFrame3, font="helvetica, 12", text="Minute:")
+l4 = tkinter.Label(programFrame3, font="helvetica, 12", text="Hour:")
+l5 = tkinter.Label(programFrame3, font="helvetica, 12", text="Minute: ")
+
+#frame4
+submitButton = tkinter.Button(programFrame4, text="Save settings", command=lambda: saveData())
 
 
 #Layout>
@@ -56,11 +70,13 @@ confirmEmailInput.grid(row=0, column=1, padx=12, pady=10,)
 l2.grid(row=0, column=0, padx=12)
 
 #frame3
-chosenTimeHourInput.grid(row=0, column=2, padx=28)
-chosenTimeMinuteInput.grid(row=0, column=4, padx=28, pady=10)
+chosenTimeHourInput.grid(row=0, column=2, padx=53)
+chosenTimeMinuteInput.grid(row=0, column=4, padx=53, pady=10)
 l3.grid(row=0, column=0)
 l4.grid(row=0, column=1)
 l5.grid(row=0, column=3)
 
+#frame4
+submitButton.grid(row=0, column=0, padx=12)
 
 root.mainloop()
