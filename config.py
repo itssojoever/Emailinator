@@ -10,6 +10,7 @@ import tkinter #for the GUI
 import email #self-explanatory
 from tkinter import messagebox #for throwing up messages
 import json
+import os
 
 #root>
 
@@ -20,29 +21,42 @@ root.iconname()
 
 #functions>
 
+def loadData():
+        if os.path.isfile("inputs.json"):
+            print("True")
+            with open("inputs.json", mode="r") as f:
+                try:
+                    data = json.load(f)
+                    emailInput.insert(0, data["email_address"].capitalize())
+                    confirmEmailInput.insert(0, data["email_address"].capitalize())
+                    chosenTimeHourInput.delete(0, tkinter.END)
+                    chosenTimeHourInput.insert(0, int(data["hour"]))
+                    chosenTimeMinuteInput.delete(0, tkinter.END)
+                    chosenTimeMinuteInput.insert(0, int(data["minutes"]))
+                except json.JSONDecodeError:
+                    print("JSON file exists but is empty. It will be populated later")
+        else:
+            print("False")
+            with open ("inputs.json", "w") as f:
+                pass
+
 def saveData():
     givenEmail = emailInput.get().upper().strip()
     givenEmail2 = confirmEmailInput.get().upper().strip()
     givenTimeH = int(chosenTimeHourInput.get())
     giventimeM = int(chosenTimeMinuteInput.get())
-    data1 = [givenEmail, givenTimeH, giventimeM]
-    if givenEmail == givenEmail2:
-        with open("inputs.json", "w") as f:
-            json.dump(data1, f)
-            messagebox.showinfo(title="Saved", message="Your settings were saved successfully")      
-    else:
-        messagebox.showerror(title="Error", message="The emails do not match, please try again")
-        
+
+    information = {}
+    information["email_address"] = givenEmail
+    information["hour"] = givenTimeH
+    information["minutes"] = giventimeM
+    with open("inputs.json", "w") as f:
+        json.dump(information, f)
 
     emailInput.delete(0, tkinter.END)
     confirmEmailInput.delete(0, tkinter.END)
     chosenTimeHourInput.delete(0, tkinter.END)
     chosenTimeMinuteInput.delete(0, tkinter.END)
-
-#WIP. Intended so that when config loaded, fields will inherit saved settings
-#def loadData():
-    # with open("inputs.json") as f:
-    #     data = json.load(f)
 
 #frames>
 
@@ -70,7 +84,7 @@ l2 = tkinter.Label(programFrame2, font="helvetica, 12", text="Re-enter email add
 
 #frame3
 chosenTimeHourInput = tkinter.Spinbox(programFrame3, from_=0, to=24)
-chosenTimeMinuteInput =tkinter.Spinbox(programFrame3, from_=0, to=59)
+chosenTimeMinuteInput = tkinter.Spinbox(programFrame3, from_=0, to=59)
 l3 = tkinter.Label(programFrame3, font="helvetica, 12", text="Select time to receive email.")
 l4 = tkinter.Label(programFrame3, font="helvetica, 12", text="Hour:")
 l5 = tkinter.Label(programFrame3, font="helvetica, 12", text="Minute: ")
@@ -98,5 +112,7 @@ l5.grid(row=0, column=3)
 
 #frame4
 submitButton.grid(row=0, column=0, padx=12)
+
+loadData()
 
 root.mainloop()
