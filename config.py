@@ -1,10 +1,8 @@
-#This is a beginning project, of a trial-and-error nature (but isn't all coding?), to build a system that sends, 
+'''This is a beginning project, of a trial-and-error nature (but isn't all coding?), to build a system that sends, 
 #at a set daily interval, presumably early in the morning, information that would be useful for the rest of the day
 #for example: weather, tasks to do, traffic conditions on the way to a set destination, a motivational quote, and so on.
 #It could also be made to open up daily programs and websites that are frequently used, although on this I'm not definitively set.
-#The end goal is to have a GUI in which to set what can be customised.
-
-#task one: set up GUI in which email address can be entered
+#The end goal is to have a GUI in which to set what can be customised.'''
 
 import tkinter #for the GUI
 import email #self-explanatory
@@ -36,6 +34,7 @@ def loadData():
                     chosenTimeMinuteInput.delete(0, tkinter.END)
                     chosenTimeMinuteInput.insert(0, int(data["minutes"]))
                     text_box_1.insert("0.0", data["tasks"])
+                    text_box_2.insert("0.0", data["futureTasks"])
                 except json.JSONDecodeError:
                     print("JSON file exists but is empty. It will be populated later")
         else:
@@ -46,23 +45,28 @@ def loadData():
 def saveData():
     givenEmail = emailInput.get().upper().strip()
     givenEmail2 = confirmEmailInput.get().upper().strip()
-    givenTimeH = int(chosenTimeHourInput.get())
-    giventimeM = int(chosenTimeMinuteInput.get())
-    givenTasks = text_box_1.get("0.0", tkinter.END) #tasks box
+    if givenEmail == givenEmail2:
 
-    information = {}
-    information["email_address"] = givenEmail
-    information["hour"] = givenTimeH
-    information["minutes"] = giventimeM
-    information["tasks"] = givenTasks
-    with open("inputs.json", "w") as f:
-        json.dump(information, f)
+        givenTimeH = int(chosenTimeHourInput.get()) #hours
+        giventimeM = int(chosenTimeMinuteInput.get()) #minutes
+        givenTasks = text_box_1.get("0.0", tkinter.END) #tasks box
+        futureTasks = text_box_2.get("0.0", tkinter.END) #future tasks
 
-    emailInput.delete(0, tkinter.END)
-    confirmEmailInput.delete(0, tkinter.END)
-    chosenTimeHourInput.delete(0, tkinter.END)
-    chosenTimeMinuteInput.delete(0, tkinter.END)
-    text_box_1.delete("0.0", tkinter.END)
+        information = {}
+        information["email_address"] = givenEmail
+        information["hour"] = givenTimeH
+        information["minutes"] = giventimeM
+        information["tasks"] = givenTasks
+        information["futureTasks"] = futureTasks
+        with open("inputs.json", "w") as f:
+            json.dump(information, f)
+            if len("inputs.json") >1:
+                messagebox.showinfo(title="Saved", message="Settings saved successfully")
+            else:
+                messagebox.showerror(title="Error", message="Something went wrong. Please re-try")
+    else:
+        messagebox.showerror(title="Error", message="Emails do not match, please try again")
+        
 
 #frames>
 
@@ -101,8 +105,11 @@ l5 = tkinter.Label(programFrame3, font="helvetica, 12", text="Minute: ")
 #frame4
 notebook = ttk.Notebook(programFrame4)
 notebook_tab_1 = tkinter.Frame(notebook)
+notebook_tab_2 = tkinter.Frame(notebook)
 notebook.add(notebook_tab_1, text="Tasks")
+notebook.add(notebook_tab_2, text="Future tasks")
 text_box_1 = tkinter.Text(notebook_tab_1, wrap=tkinter.WORD)
+text_box_2 = tkinter.Text(notebook_tab_2, wrap=tkinter.WORD)
 
 #frame5
 submitButton = tkinter.Button(programFrame5, text="Save settings", command=lambda: saveData())
@@ -112,22 +119,23 @@ submitButton = tkinter.Button(programFrame5, text="Save settings", command=lambd
 
 #frame1
 emailInput.grid(row=0, column=1, padx=10, pady=10,)
-l1.grid(row=0, column=0)
+l1.grid(row=0, column=0, padx=15)
 
 #frame2
 confirmEmailInput.grid(row=0, column=1, padx=12, pady=10,)
-l2.grid(row=0, column=0, padx=12)
+l2.grid(row=0, column=0, padx=27)
 
 #frame3
-chosenTimeHourInput.grid(row=0, column=2, padx=53)
-chosenTimeMinuteInput.grid(row=0, column=4, padx=53, pady=10)
+chosenTimeHourInput.grid(row=0, column=2, padx=35)
+chosenTimeMinuteInput.grid(row=0, column=4, padx=36, pady=10)
 l3.grid(row=0, column=0)
 l4.grid(row=0, column=1)
 l5.grid(row=0, column=3)
 
 #frame4
-notebook.grid(row=0, column=0, padx=10)
-text_box_1.grid(row=0, column=0, padx=25, pady=10)
+notebook.grid(row=0, column=0, padx=11)
+text_box_1.grid(row=0, column=0, padx=24, pady=10)
+text_box_2.grid(row=0, column=1, padx=24, pady=10)
 
 #frame5
 submitButton.grid(row=0, column=0, padx=12)

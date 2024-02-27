@@ -8,7 +8,7 @@ import sys
 import datetime
 import email
 import smtplib
-from apscheduler.schedulers.background import BackgroundScheduler, BlockingScheduler #blockingscheduler waits at .start(), backgroundscheduler continues past it
+from apscheduler.schedulers.background import BlockingScheduler #APScheduler for timed execution of jobs
 from env import SMTPinfoE, SMTPinfoK, SMTPinfoP, SMTPinfoS
 
 def main():
@@ -19,11 +19,12 @@ def main():
                     data = json.load(f)
                     global emailaddress
                     global givenTasks
+                    global futureTasks
                     emailaddress = data["email_address"] 
                     timeH = data["hour"]
                     timeM = data["minutes"] #Extract settings from the JSON, assign them to variables
                     givenTasks = data["tasks"]
-                    textBody = givenTasks
+                    futureTasks = data["futureTasks"]
                     setTime = datetime.time(timeH, timeM) #Convert integers to a time.
                 
                     print(f"The set email address is {emailaddress}")
@@ -51,7 +52,7 @@ def emailClient():
 
     conn.login(SMTPinfoE, SMTPinfoK)
     
-    conn.sendmail(SMTPinfoE, emailaddress, f"Subject: Daily update\n\n{givenTasks}\n\n")
+    conn.sendmail(SMTPinfoE, emailaddress, f"Subject: Daily update\n\n Here are your daily tasks:\n\n {givenTasks} \n\n Here are your future tasks:\n {futureTasks}\n\n")
 
     print("Email sent")
     time.sleep(20)

@@ -2,3 +2,5 @@ inputs.json
 .env
 env.py
 __pycache__
+run.bat
+config.bat
