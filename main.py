@@ -7,6 +7,8 @@ import time
 import sys
 import datetime
 import email
+import smtplib
+from env import SMTPinfoE, SMTPinfoK, SMTPinfoP, SMTPinfoS
 
 def main():
     if os.path.isfile("inputs.json"):
@@ -14,6 +16,7 @@ def main():
         with open("inputs.json", "r") as f:
                 try:
                     data = json.load(f)
+                    global emailaddress
                     emailaddress = data["email_address"] 
                     timeH = data["hour"]
                     timeM = data["minutes"] #Extract settings from the JSON, assign them to variables
@@ -30,4 +33,22 @@ def main():
         print("This program cannot run without having first been configured. Please run config.py")
         time.sleep(10)
 
+        
+def emailClient():
+     conn = smtplib.SMTP(SMTPinfoS, SMTPinfoP)
+
+     conn.ehlo()
+
+     conn.starttls()
+
+     conn.login(SMTPinfoE, SMTPinfoK)
+
+     conn.sendmail(SMTPinfoE, emailaddress, "Subject: testing testing 1 2 3 \n\nThis is a Python test.\n\n")
+     
+     print("Email sent")
+     time.sleep(20)
+
+     conn.quit()
+
 main()
+emailClient()
