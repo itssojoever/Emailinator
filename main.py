@@ -18,9 +18,12 @@ def main():
                 try:
                     data = json.load(f)
                     global emailaddress
+                    global givenTasks
                     emailaddress = data["email_address"] 
                     timeH = data["hour"]
                     timeM = data["minutes"] #Extract settings from the JSON, assign them to variables
+                    givenTasks = data["tasks"]
+                    textBody = givenTasks
                     setTime = datetime.time(timeH, timeM) #Convert integers to a time.
                 
                     print(f"The set email address is {emailaddress}")
@@ -39,12 +42,6 @@ def main():
         print("This program cannot run without having first been configured. Please run config.py")
         time.sleep(10)
 
-
-def consolidation():
-     pass
-     
-
-
 def emailClient():
     conn = smtplib.SMTP(SMTPinfoS, SMTPinfoP)
 
@@ -53,8 +50,8 @@ def emailClient():
     conn.starttls()
 
     conn.login(SMTPinfoE, SMTPinfoK)
-
-    conn.sendmail(SMTPinfoE, emailaddress, "Subject: testing testing 1 2 3 \n\nThis is a Python test.\n\n")
+    
+    conn.sendmail(SMTPinfoE, emailaddress, f"Subject: Daily update\n\n{givenTasks}\n\n")
 
     print("Email sent")
     time.sleep(20)

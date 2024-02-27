@@ -35,7 +35,7 @@ def loadData():
                     chosenTimeHourInput.insert(0, int(data["hour"]))
                     chosenTimeMinuteInput.delete(0, tkinter.END)
                     chosenTimeMinuteInput.insert(0, int(data["minutes"]))
-                    #text_box_1.insert(0, data["givenTasks"])
+                    text_box_1.insert("0.0", data["tasks"])
                 except json.JSONDecodeError:
                     print("JSON file exists but is empty. It will be populated later")
         else:
