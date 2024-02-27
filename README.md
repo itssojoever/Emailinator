@@ -33,7 +33,7 @@ With respect to main.py, the code which reads the JSON file, converts the time i
 -----------------------------
 ## Improvements?
 
-At the moment it's relatively barebones. While it does what I intended it to do, it's missing a lot of functions I'd like to add, and it certainly wouldn't win any prizes for interface design. Future improvements, then, would be focused on adding more functions to it, moving it onto a dedicated server to avoid the instability of running it on my personal laptop (would need higher uptime %), improving the design, and tidying up the code.
+At the moment it's relatively barebones. While it does what I intended it to do, it's missing a lot of functions I'd like to add, and it certainly wouldn't win any prizes for interface design. Future improvements, then, would be focused on adding more functions to it, moving it onto a dedicated server to avoid the instability of running it on my personal laptop (would need higher uptime %), improving the design, and tidying up the code. In the long-run a move from emailing the information to a dashboard would likely make the program and information more presentable
 
 -----------------------------
 ## Conclusion
