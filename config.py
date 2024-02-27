@@ -9,6 +9,8 @@
 import tkinter #for the GUI
 import email #self-explanatory
 from tkinter import messagebox #for throwing up messages
+from tkinter import ttk
+import tkinter.scrolledtext
 import json
 import os
 
@@ -33,6 +35,7 @@ def loadData():
                     chosenTimeHourInput.insert(0, int(data["hour"]))
                     chosenTimeMinuteInput.delete(0, tkinter.END)
                     chosenTimeMinuteInput.insert(0, int(data["minutes"]))
+                    #text_box_1.insert(0, data["givenTasks"])
                 except json.JSONDecodeError:
                     print("JSON file exists but is empty. It will be populated later")
         else:
@@ -45,11 +48,13 @@ def saveData():
     givenEmail2 = confirmEmailInput.get().upper().strip()
     givenTimeH = int(chosenTimeHourInput.get())
     giventimeM = int(chosenTimeMinuteInput.get())
+    givenTasks = text_box_1.get("0.0", tkinter.END) #tasks box
 
     information = {}
     information["email_address"] = givenEmail
     information["hour"] = givenTimeH
     information["minutes"] = giventimeM
+    information["tasks"] = givenTasks
     with open("inputs.json", "w") as f:
         json.dump(information, f)
 
@@ -57,6 +62,7 @@ def saveData():
     confirmEmailInput.delete(0, tkinter.END)
     chosenTimeHourInput.delete(0, tkinter.END)
     chosenTimeMinuteInput.delete(0, tkinter.END)
+    text_box_1.delete("0.0", tkinter.END)
 
 #frames>
 
@@ -71,6 +77,9 @@ programFrame3.grid(row=2, column=0)
 
 programFrame4 = tkinter.LabelFrame(root)
 programFrame4.grid(row=3, column=0)
+
+programFrame5 = tkinter.LabelFrame(root)
+programFrame5.grid(row=4, column=0)
 
 #widgets>
 
@@ -90,7 +99,13 @@ l4 = tkinter.Label(programFrame3, font="helvetica, 12", text="Hour:")
 l5 = tkinter.Label(programFrame3, font="helvetica, 12", text="Minute: ")
 
 #frame4
-submitButton = tkinter.Button(programFrame4, text="Save settings", command=lambda: saveData())
+notebook = ttk.Notebook(programFrame4)
+notebook_tab_1 = tkinter.Frame(notebook)
+notebook.add(notebook_tab_1, text="Tasks")
+text_box_1 = tkinter.Text(notebook_tab_1, wrap=tkinter.WORD)
+
+#frame5
+submitButton = tkinter.Button(programFrame5, text="Save settings", command=lambda: saveData())
 
 
 #Layout>
@@ -111,6 +126,10 @@ l4.grid(row=0, column=1)
 l5.grid(row=0, column=3)
 
 #frame4
+notebook.grid(row=0, column=0, padx=10)
+text_box_1.grid(row=0, column=0, padx=25, pady=10)
+
+#frame5
 submitButton.grid(row=0, column=0, padx=12)
 
 loadData()

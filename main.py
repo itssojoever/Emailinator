@@ -28,7 +28,7 @@ def main():
 
                     scheduler = BlockingScheduler()
 
-                    job_1 = scheduler.add_job(emailClient, "cron", hour = timeH , minute=timeM )
+                    job_1 = scheduler.add_job(emailClient, "cron", hour = timeH , minute = timeM)
                     scheduler.start()
 
                 except json.JSONDecodeError:
