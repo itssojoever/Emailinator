@@ -47,10 +47,8 @@ def saveData():
     givenEmail2 = confirmEmailInput.get().upper().strip()
     if givenEmail == givenEmail2:
 
-        givenTimeH = int(chosenTimeHourInput.get()) #hours
-        giventimeM = int(chosenTimeMinuteInput.get()) #minutes
-        givenTasks = text_box_1.get("0.0", tkinter.END) #tasks box
-        futureTasks = text_box_2.get("0.0", tkinter.END) #future tasks
+        givenTimeH, giventimeM = int(chosenTimeHourInput.get()), int(chosenTimeMinuteInput.get()) #hours and minutes
+        givenTasks, futureTasks = text_box_1.get("0.0", tkinter.END), text_box_2.get("0.0", tkinter.END) #tasks box
 
         information = {}
         information["email_address"] = givenEmail
