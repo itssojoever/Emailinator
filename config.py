@@ -50,12 +50,14 @@ def saveData():
         givenTimeH, giventimeM = int(chosenTimeHourInput.get()), int(chosenTimeMinuteInput.get()) #hours and minutes
         givenTasks, futureTasks = text_box_1.get("0.0", tkinter.END), text_box_2.get("0.0", tkinter.END) #tasks box
 
-        information = {}
-        information["email_address"] = givenEmail
-        information["hour"] = givenTimeH
-        information["minutes"] = giventimeM
-        information["tasks"] = givenTasks
-        information["futureTasks"] = futureTasks
+        information = {
+            "email_address" : givenEmail,
+            "hour" : givenTimeH,
+            "minutes" : giventimeM,
+            "tasks" : givenTasks,
+            "futureTasks" : futureTasks
+        }
+
         with open("inputs.json", "w") as f:
             json.dump(information, f)
             if len("inputs.json") >1:
