@@ -17,9 +17,6 @@ def main():
         with open("inputs.json", "r") as f:
                 try:
                     data = json.load(f)
-                    global emailaddress
-                    global givenTasks
-                    global futureTasks
                     emailaddress = data.get("email_address")
                     timeH = data.get("hour")
                     timeM = data.get("minutes")
@@ -32,7 +29,7 @@ def main():
 
                     scheduler = BlockingScheduler()
 
-                    job_1 = scheduler.add_job(emailClient, "cron", hour = timeH , minute = timeM)
+                    job_1 = scheduler.add_job(emailClient, "cron", hour = timeH , minute = timeM, args=[emailaddress, givenTasks, futureTasks])
                     scheduler.start()
 
                 except json.JSONDecodeError:
@@ -43,22 +40,23 @@ def main():
         print("This program cannot run without having first been configured. Please run config.py")
         time.sleep(10)
 
-def emailClient():
-    conn = smtplib.SMTP(SMTPinfoS, SMTPinfoP)
+def emailClient(emailaddress, givenTasks, futureTasks):
+    try:
+        with smtplib.SMTP(SMTPinfoS, SMTPinfoP) as conn:
 
-    conn.ehlo()
+            conn.ehlo()
 
-    conn.starttls()
+            conn.starttls()
 
-    conn.login(SMTPinfoE, SMTPinfoK)
-    
-    conn.sendmail(SMTPinfoE, emailaddress, f"Subject: Daily update\n\n Here are your daily tasks:\n\n {givenTasks} \n\n Here are your future tasks:\n {futureTasks}\n\n")
+            conn.login(SMTPinfoE, SMTPinfoK)
+            
+            conn.sendmail(SMTPinfoE, emailaddress, f"Subject: Daily update\n\n Here are your daily tasks:\n\n {givenTasks} \n\n Here are your future tasks:\n {futureTasks}\n\n")
 
-    print("Email sent")
-    time.sleep(20)
+            print("Email sent")
 
-    conn.quit()
-
+            conn.quit()
+    except:
+        print("Exception occurred")
 
 if __name__== "__main__":
     main()
