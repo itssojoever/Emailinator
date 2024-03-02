@@ -20,11 +20,11 @@ def main():
                     global emailaddress
                     global givenTasks
                     global futureTasks
-                    emailaddress = data["email_address"] 
-                    timeH = data["hour"]
-                    timeM = data["minutes"] #Extract settings from the JSON, assign them to variables
-                    givenTasks = data["tasks"]
-                    futureTasks = data["futureTasks"]
+                    emailaddress = data.get("email_address")
+                    timeH = data.get("hour")
+                    timeM = data.get("minutes")
+                    givenTasks = data.get("tasks")
+                    futureTasks = data.get("futureTasks")
                     setTime = datetime.time(timeH, timeM) #Convert integers to a time.
                 
                     print(f"The set email address is {emailaddress}")
@@ -59,4 +59,6 @@ def emailClient():
 
     conn.quit()
 
-main()
+
+if __name__== "__main__":
+    main()
