@@ -5,7 +5,6 @@
 #The end goal is to have a GUI in which to set what can be customised.'''
 
 import tkinter #for the GUI
-import email #self-explanatory
 from tkinter import messagebox #for throwing up messages
 from tkinter import ttk
 import tkinter.scrolledtext
