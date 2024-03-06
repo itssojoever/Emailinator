@@ -11,14 +11,10 @@ import tkinter.scrolledtext
 import json
 import os
 
-#root>
-
 root = tkinter.Tk()
 root.geometry("630x500")
 root.title("Emailinator")
 root.iconname()
-
-#functions>
 
 def loadData():
         if os.path.isfile("inputs.json"):
@@ -66,9 +62,6 @@ def saveData():
     else:
         messagebox.showerror(title="Error", message="Emails do not match, please try again")
         
-
-#frames>
-
 programFrame1 = tkinter.LabelFrame(root)
 programFrame1.grid(row=0, column=0)
 
@@ -84,9 +77,6 @@ programFrame4.grid(row=3, column=0)
 programFrame5 = tkinter.LabelFrame(root)
 programFrame5.grid(row=4, column=0)
 
-#widgets>
-
-#frame1
 l1 = tkinter.Label(programFrame1, font="helvetica, 12", text="Please enter email address: ")
 emailInput = tkinter.Entry(programFrame1, font="helvetica", relief="sunken", width=50, borderwidth=5)
 
