@@ -16,6 +16,8 @@ root.geometry("630x500")
 root.title("Emailinator")
 root.iconname()
 
+#Functions
+
 def loadData():
         if os.path.isfile("inputs.json"):
             print("JSON file found")
@@ -61,6 +63,8 @@ def saveData():
                 messagebox.showerror(title="Error", message="Something went wrong. Please re-try")
     else:
         messagebox.showerror(title="Error", message="Emails do not match, please try again")
+
+#Frames
         
 programFrame1 = tkinter.LabelFrame(root)
 programFrame1.grid(row=0, column=0)
@@ -76,6 +80,8 @@ programFrame4.grid(row=3, column=0)
 
 programFrame5 = tkinter.LabelFrame(root)
 programFrame5.grid(row=4, column=0)
+
+#frame1
 
 l1 = tkinter.Label(programFrame1, font="helvetica, 12", text="Please enter email address: ")
 emailInput = tkinter.Entry(programFrame1, font="helvetica", relief="sunken", width=50, borderwidth=5)
@@ -102,7 +108,6 @@ text_box_2 = tkinter.Text(notebook_tab_2, wrap=tkinter.WORD)
 
 #frame5
 submitButton = tkinter.Button(programFrame5, text="Save settings", command=lambda: saveData())
-
 
 #Layout>
 
