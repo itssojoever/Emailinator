@@ -112,11 +112,11 @@ submitButton = tkinter.Button(programFrame5, text="Save settings", command=lambd
 #Layout>
 
 #frame1
-emailInput.grid(row=0, column=1, padx=10, pady=10,)
+emailInput.grid(row=0, column=1, padx=10, pady=10)
 l1.grid(row=0, column=0, padx=15)
 
 #frame2
-confirmEmailInput.grid(row=0, column=1, padx=12, pady=10,)
+confirmEmailInput.grid(row=0, column=1, padx=12, pady=10)
 l2.grid(row=0, column=0, padx=27)
 
 #frame3
