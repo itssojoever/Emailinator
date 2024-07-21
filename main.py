@@ -9,7 +9,14 @@ import datetime
 import email
 import smtplib
 from apscheduler.schedulers.background import BlockingScheduler #APScheduler for timed execution of jobs
-from env import SMTPinfoE, SMTPinfoK, SMTPinfoP, SMTPinfoS
+from dotenv import load_dotenv
+
+load_dotenv() #load environment variables from .env
+
+SMTPInfoS = os.getenv("smtpInfoS") #SMTP server
+SMTPInfoP = os.getenv("smtpInfoP") #port
+SMTPInfoE = os.getenv("smtpInfoE") #sender email
+SMTPInfoK = os.getenv("smtpInfoK") #gmail key
 
 def main():
     if os.path.isfile("inputs.json"):
@@ -42,15 +49,15 @@ def main():
 
 def emailClient(emailaddress, givenTasks, futureTasks):
     try:
-        with smtplib.SMTP(SMTPinfoS, SMTPinfoP) as conn:
+        with smtplib.SMTP(SMTPInfoS, SMTPInfoP) as conn:
 
             conn.ehlo()
 
             conn.starttls()
 
-            conn.login(SMTPinfoE, SMTPinfoK)
+            conn.login(SMTPInfoE, SMTPInfoK)
             
-            conn.sendmail(SMTPinfoE, emailaddress, f"Subject: Daily update\n\n Here are your daily tasks:\n\n {givenTasks} \n\n Here are your future tasks:\n {futureTasks}\n\n")
+            conn.sendmail(SMTPInfoE, emailaddress, f"Subject: Daily update\n\n Here are your daily tasks:\n\n {givenTasks} \n\n Here are your future tasks:\n {futureTasks}\n\n")
 
             print("Email sent")
 
